@@ -14,6 +14,19 @@
 
 @implementation OnetimePasswordViewController
 
+- (instancetype)init {
+    if (self = [super init]) {
+        _fbc = [[FLBFlutterViewContainer alloc] init];
+        [_fbc setName:@"onetime" params:@{}];
+    }
+    return self;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear: animated];
+    self.navigationItem.title = @"动态口令";
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.

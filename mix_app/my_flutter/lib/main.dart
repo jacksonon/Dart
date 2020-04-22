@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_boost/flutter_boost.dart';
+
+// custom page
 import 'simple_page_widgets.dart';
 import 'perfectworld.dart';
 
+// otp page
 import 'setup.dart';
+import 'OnetimePassword.dart';
 
 void main() {
+  // root widget
   runApp(MyApp());
 }
 
@@ -21,6 +26,7 @@ class _MyAppState extends State<MyApp> {
 
     FlutterBoost.singleton.registerPageBuilders({
       'setup': (pageName, params, _) => SetUpPage(),
+      'onetime': (pageName, params, _) => OnetimePage(),
 
       'embeded': (pageName, params, _)=>EmbededFirstRouteWidget(),
       'first': (pageName, params, _) => FirstRouteWidget(),

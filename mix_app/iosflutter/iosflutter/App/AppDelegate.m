@@ -41,12 +41,16 @@
     ViewController *vc = [[ViewController alloc] init];
     vc.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"hybrid" image:nil tag:0];
     
+    FLBFlutterViewContainer *onetime = [[OnetimePasswordViewController alloc] init].fbc;
+    onetime.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"动态口令" image:nil tag:1];
+    onetime.navigationItem.title = @"动态口令";
+    
     // flutter 页面卡:使用fbvc可以通过name拿到flutter渲染的页面实例
 //    FLBFlutterViewContainer *fvc = FLBFlutterViewContainer.new;
 //    [fvc setName:@"setup" params:@{}];
 //    fvc.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"设置" image:nil tag:1];
     FLBFlutterViewContainer *setup = [[SetupViewController alloc] init].flutterContrainer;
-    setup.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"设置" image:nil tag:1];
+    setup.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"设置" image:nil tag:2];
     setup.navigationItem.title = @"设置";
     
     
@@ -56,7 +60,7 @@
     // 提供路由跳转使用的navigationController
     router.navigationController = rvc;
     
-    tabVC.viewControllers = @[vc,setup];
+    tabVC.viewControllers = @[vc, onetime, setup];
     
     self.window.rootViewController = rvc;
      
