@@ -1,32 +1,11 @@
 # F计划
 
-## Dart
+> Flutter Plan
 
-- [基础语法](https://www.dartcn.com/guides/language/language-tour)
+## 构建Flutter项目
 
-## Flutter
+- flutter_app
 
-- 基础控件
-- 界面控件
-- 基础布局
+## 构建Flutter Mix Native项目
 
-## 知识
-
-- 咸鱼开源技术及其它开源技术阅读共享
-
-## 实践
-
-- 重构基于flutter的某软件
-
-## 深入
-
-- 了解更多技术内幕
-
-## 分享
-
-- flutter技术开发从入门到精通系列
-
-## 疑问
-
-1. Android Studio 一开始使用只能使用iOS模拟器？连接真机不显示真机？
-
+- mix_app
