@@ -5,9 +5,15 @@ import 'dart:convert'; // httpclient需要导入如下两个包
 import 'dart:io';
 import 'perfectworld.dart';
 import 'MyInkWell.dart';
+import 'MySecondScreen.dart';
+import 'dart:ui' as ui;
 
 //void main() => runApp(TestApp());
-void main() => runApp(MyInkwellApp());
+//void main() => runApp(TestApp());
+void main() {
+  ui.window.setIsolateDebugName("debug isolate");
+  return runApp(MyApp());
+}
 
 class YouApp extends StatelessWidget {
 
@@ -81,13 +87,12 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(title: 'Flutter Demo Home Page', useLabel: '嘿嘿额黑',),
     );
   }
 }
 // 继承自有状态的statefulWidget
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
   // how it looks.
@@ -98,6 +103,8 @@ class MyHomePage extends StatefulWidget {
   // always marked "final".
 
   final String title;
+  final String useLabel;
+  MyHomePage({Key key, this.title, this.useLabel}) : super(key: key);
 
   // 重写createstate方法
   @override
@@ -106,6 +113,10 @@ class MyHomePage extends StatefulWidget {
 
 // 状态类必须继承自state类
 class _MyHomePageState extends State<MyHomePage> {
+
+
+  // 需要设置Scaffold的key才能弹出SnackBar
+  var _scaffoldkey = GlobalKey<ScaffoldState>();
 
   // 定义普通变量作为计数器变量
   int _counter = 0;
@@ -136,7 +147,25 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
+   void _navigateAndDisplaySecond() async {
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => SecondScreen(todo: Todo('我的二级界面', '返回上级界面'))),
+    );
+
+    print('接收到返回值:${result}');
+
+    // 获取了返回值,弹窗展示
+//    Scaffold.of(context).showSnackBar(SnackBar(content: Text('${result}'),));
+   _scaffoldkey.currentState.showSnackBar(SnackBar(content: Text('${result}'),));
+  }
+
   void _toggleShow() {
+    // 跳转下一个界面
+    // 创建todo
+    Navigator.push(context, MaterialPageRoute(builder: (context) => SecondScreen(todo: Todo('我的二级界面', '赶紧返回上级界面'))));
+
+
     setState(() {
       _showText = !_showText;
     });
@@ -173,10 +202,11 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
+      key: _scaffoldkey,
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+        title: Text(widget.useLabel),
       ),
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
@@ -212,10 +242,12 @@ class _MyHomePageState extends State<MyHomePage> {
         )
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _toggleShow,
+        onPressed: _navigateAndDisplaySecond,
         tooltip: '反转',
         child: Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
+
+

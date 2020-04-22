@@ -1,0 +1,16 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+
+# 引入flutter链接
+flutter_application_path = '../my_flutter'
+load File.join(flutter_application_path, '.ios', 'Flutter', 'podhelper.rb')
+
+target 'iosflutter' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for iosflutter 将flutter工程产物导入该位置；这种方式就需要在本地有flutter那个项目，每次运行都需要git pull && pod install保证最新
+  install_all_flutter_pods(flutter_application_path)
+  
+  # Basic pods 
+end
