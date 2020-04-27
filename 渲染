@@ -1,0 +1,27 @@
+GPU渲染
+
+需要脚本解析
+语言解析执行性能弱，尤其遇到大量计算
+webview渲染进程是独立的，每一帧都要通过IPC调用GPU进程，频繁进程间通讯，造成性能消耗，（上下文切换消耗CPU时间，即算力）
+两个进程无法共享纹理资源，GPU无法直接使用context光栅化，需要等待webview通过进程间通讯将conext传给GPU，因此GPU的性能发挥也收到影响，
+
+为什么RN 和 webview的渲染是一样的，
+RN也有js语言解释性能的问题
+然而RN的渲染效率略高于webview
+因为json的解析复杂度比html+css低
+
+
+flutter架构：
+framework(dart)
+engine(c++)
+embedder（跨平台嵌入）
+
+flutter渲染有这几层：
+1. build 
+2. widget tree
+3. element tree
+4. renderobject tree 
+5. layout
+6. paint
+7. cimposited layer
+8. rasterize
